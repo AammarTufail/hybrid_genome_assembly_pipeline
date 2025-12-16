@@ -11,7 +11,7 @@
 # -----------------------------------------------------------------------------
 # ------------------------------ Info -----------------------------------------
 # -----------------------------------------------------------------------------
-# Installation and commands of every tool tested 
+# Installation and commands of every genome assembly tool we tested 
     # Please change: 
         # home_dir (line 41)
         # Micromamba activation (line 29-32)
