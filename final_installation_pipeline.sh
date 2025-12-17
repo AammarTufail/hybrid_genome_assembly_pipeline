@@ -5,7 +5,7 @@
 #SBATCH --time=1-23:55:00
 #SBATCH --job-name=installation_pipeline
 #SBATCH --output=installation_pipeline.out
-#SBATCH --error=installation_pipelineerr
+#SBATCH --error=installation_pipeline.err
 #SBATCH --partition=base
 
 # -----------------------------------------------------------------------------
@@ -15,10 +15,40 @@
     # Please change: 
         # home_dir (line 41)
         # db_home_dir (line 42)
-        # Micromamba and conda activation (line 26-32)
+        # Micromamba and conda activation (line 57-62)
                 # Conda is only needed for GTDBtk dtatabase download (Micromamba didnt work)
-        # proxy settings for HPC without direct internet connection (line 34-37)
-        # Gtdb database download directory (line 177)
+        # proxy settings for HPC without direct internet connection (line 64-67)
+        # Gtdb database download directory (line 1208)
+
+#--------------Tools:
+# FastQC (https://github.com/s-andrews/FastQC)
+    # Quality control Illumina short reads
+# Fastp (https://github.com/s-andrews/FastQC)
+    # Processing of Illumina short reads
+# NanoPlot (https://github.com/wdecoster/NanoPlot)
+    # Quality control of ONT long reads
+# Filtlong (https://github.com/rrwick/Filtlong)
+    # Processing of ONT long reads
+# Canu (https://github.com/marbl/canu)
+    # Error correction of ONT long reads
+# Unicycler (https://github.com/rrwick/Unicycler
+    # Hybrid genome assembly from short and long reads
+# Quast (https://github.com/ablab/quast)
+    # Quality assesment of the assembled genomes
+# CheckM (https://github.com/Ecogenomics/CheckM)
+    # Quality assesment of the assembled genomes 
+        # Completeness and Contamination estimation based on marker genes
+# CheckM2 (https://github.com/chklovski/CheckM2)
+    # Quality assesment of the assembled genomes
+        # Completeness and Contamination estimation based on machine learning
+# Prokka (https://github.com/tseemann/prokka)
+    # Annotation of the assembled genomes
+# Bakta (https://github.com/oschwengers/bakta)
+    # Annotation of the assembled genomes (more comprehensive)
+# GTDB-tk (https://github.com/Ecogenomics/GTDBTk)
+    # Taxonomic classification of the assembled genomes
+# Plassembler (https://github.com/gbouras13/plassembler)
+    # Plasmid assembly from short and long reads
 # -----------------------------------------------------------------------------
 # -----------------------------------------------------------------------------
 # -----------------------------------------------------------------------------

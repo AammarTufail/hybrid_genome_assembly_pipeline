@@ -11,16 +11,53 @@
 # -----------------------------------------------------------------------------
 # ------------------------------ Info -----------------------------------------
 # -----------------------------------------------------------------------------
-# Installation and commands of every genome assembly tool we tested 
+# Installation, commands and quality analysis of every genome assembly tool we tested 
     # Please change: 
-        # home_dir (line 41)
-        # Micromamba activation (line 29-32)
-        # proxy settings for HPC without direct internet connection (line 34-37)
-# Already finished read processing is required this script 
-  # found in assembly_pipeline.sh
-  # adjust read_dir path to them (line 53-61)
+        # home_dir (line 78)
+        # Micromamba activation (line 67-69)
+        # proxy settings for HPC without direct internet connection (line 71-74)
+# Already processed reads are required this script 
+  # workflow found in assembly_pipeline.sh
+  # adjust read_dir path to them (line 92-99)
 # Installation and database download for all assembly_qc (Quast, Checkm, Checkm2, Prokka, Bakta) tools is required
   # found in installation_pipeline.sh
+  # Quality assessmant tools start at line 790
+
+
+#--------------Tools:
+## Assembly
+# SKESA (https://github.com/ncbi/SKESA)
+    # Short read assembly
+# SPAdes (https://github.com/ablab/spades)
+    # Short read assembly
+# Wtdbg2 (https://github.com/ruanjue/wtdbg2)
+    # Long read assembly
+# Miniasm (https://github.com/lh3/miniasm)
+    # Long read assembly
+# Flye (https://github.com/lh3/miniasm)
+    # Long read assembly
+# Hybridspades  (https://github.com/ablab/spades ; https://ablab.github.io/spades/hybrid.html)
+  # Hybrdid assembly
+# Unicycler (https://github.com/rrwick/Unicycler
+    # Hybrid genome assembly from short and long reads
+# Canu (https://github.com/marbl/canu)
+    # Error correction of ONT long reads
+# Racon (https://ablab.github.io/spades/hybrid.html)
+  # Asembly polishing/correcting with short and long reads
+
+## Quality control
+# Quast (https://github.com/ablab/quast)
+    # Quality assesment of the assembled genomes
+# CheckM (https://github.com/Ecogenomics/CheckM)
+    # Quality assesment of the assembled genomes 
+        # Completeness and Contamination estimation based on marker genes
+# CheckM2 (https://github.com/chklovski/CheckM2)
+    # Quality assesment of the assembled genomes
+        # Completeness and Contamination estimation based on machine learning
+# Prokka (https://github.com/tseemann/prokka)
+    # Annotation of the assembled genomes
+# Bakta (https://github.com/oschwengers/bakta)
+    # Annotation of the assembled genomes (more comprehensive)
 
 # -----------------------------------------------------------------------------
 # -----------------------------------------------------------------------------
@@ -50,16 +87,15 @@ checkm2_db_dir="$db_home_dir/checkm2_db"
     # not downloadable anymore until Quast recieves a new update for the Busco database
 bakta_db_dir="$db_home_dir/bakta_db"
 
-# Read input    
-ddsvc
-read_dir="/work_beegfs/sunam216/hendrik/paper_script_test" 
+# Read input    coot
+read_dir="/path/to/your/reads" 
   # 01-Trimmed short reads
-  fastp_out="$read_dir/01_cleaning_short_reads/02_cleaned_short_reads"
+  fastp_out="$read_dir/01_short_reads"
   # 02-Trimmed long reads
-  filtlong_out_fasta="$read_dir/02_cleaning_long_reads/02_cleaned_long_reads/cleaned_fasta"
+  filtlong_out_fasta="$read_dir/02_long_reads"
   # 03-Canu corrected long reads
     # only needed for unicycler and racon
-  canu_corrected_reads="$read_dir/02_cleaning_long_reads/04_corrected_long_reads/all_corrected_reads/"
+  canu_corrected_reads="$read_dir/03_corrected_long_reads"
 
 #---------------------------------------------------------------------------------------
 # ##-----Set the amount of Ram and CPUs available per task running parallel-------------
@@ -598,6 +634,7 @@ micromamba deactivate
 #---------------------------------------------------------------------------------------
 # ##-----------------------------------Assembly polishing-------------------------------
 #---------------------------------------------------------------------------------------
+# ------------------------------- Racon
 # polished the canu corrected unicycler assembly (best results so far)
   # VERY memory intensive 
       # did not run with less than 64G, even without any multi-threading
