@@ -1,18 +1,15 @@
 #!/bin/bash
-#SBATCH --nodes=1
-#SBATCH --cpus-per-task=32
-#SBATCH --mem=128G
-#SBATCH --time=23:55:00
-#SBATCH --job-name=tool_test
-#SBATCH --output=tool_test.out
-#SBATCH --error=tool_test.err
-#SBATCH --partition=base
 
 # -----------------------------------------------------------------------------
 # ------------------------------ Info -----------------------------------------
 # -----------------------------------------------------------------------------
-# Installation, commands and quality analysis of every genome assembly tool we tested 
-    # Please change: 
+# Installation, commands and quality evaluation of every genome assembly tool we tested 
+
+# Please make sure micromamba is installed and loaded befor you start this script 
+    # https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html
+        # Micromamba 1.4.2 was used for the creation of this pipeline
+
+# Please change: 
         # home_dir (line 78)
         # Micromamba activation (line 67-69)
         # proxy settings for HPC without direct internet connection (line 71-74)
@@ -59,20 +56,6 @@
 # Bakta (https://github.com/oschwengers/bakta)
     # Annotation of the assembled genomes (more comprehensive)
 
-# -----------------------------------------------------------------------------
-# -----------------------------------------------------------------------------
-# -----------------------------------------------------------------------------
-
-# Load modules
-module load micromamba/1.4.2
-export MAMBA_ROOT_PREFIX=$HOME/.micromamba
-eval "$(micromamba shell hook --shell=bash)"
-
-#set proxy environment for HPC
-export http_proxy=http://relay:3128
-export https_proxy=http://relay:3128
-export ftp_proxy=http://relay:3128
-
 # ##--------------------------------Set directory paths-----------------------------
 # Home directory
 home_dir="/path/to/your/assembly_pipeline_directory"
@@ -87,7 +70,7 @@ checkm2_db_dir="$db_home_dir/checkm2_db"
     # not downloadable anymore until Quast recieves a new update for the Busco database
 bakta_db_dir="$db_home_dir/bakta_db"
 
-# Read input    coot
+# Read input
 read_dir="/path/to/your/reads" 
   # 01-Trimmed short reads
   fastp_out="$read_dir/01_short_reads"
@@ -98,7 +81,7 @@ read_dir="/path/to/your/reads"
   canu_corrected_reads="$read_dir/03_corrected_long_reads"
 
 #---------------------------------------------------------------------------------------
-# ##-----Set the amount of Ram and CPUs available per task running parallel-------------
+# ##-----Calculation of Ram and CPUs available per task for parallelisation-------------
 #---------------------------------------------------------------------------------------
 
 # define the maximum amount of threads available
