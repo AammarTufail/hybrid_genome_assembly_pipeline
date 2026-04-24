@@ -1,24 +1,24 @@
 #!/bin/bash
-#SBATCH --nodes=1
-#SBATCH --cpus-per-task=28
-#SBATCH --mem=128G
-#SBATCH --time=1-23:55:00
-#SBATCH --job-name=installation_pipeline
-#SBATCH --output=installation_pipeline.out
-#SBATCH --error=installation_pipeline.err
-#SBATCH --partition=base
 
 # -----------------------------------------------------------------------------
 # ------------------------------ Info -----------------------------------------
 # -----------------------------------------------------------------------------
-# Installation and database download 
-    # Please change: 
-        # home_dir (line 41)
-        # db_home_dir (line 42)
-        # Micromamba and conda activation (line 57-62)
-                # Conda is only needed for GTDBtk dtatabase download (Micromamba didnt work)
-        # proxy settings for HPC without direct internet connection (line 64-67)
-        # Gtdb database download directory (line 1208)
+# This script will install all tools and databases needed for the assembly pipeline to run
+
+# The database downloads can be memory, cpu and time intensive so make sure you allocate as much as possible
+    # tested with 28 cpus, 128 gb RAM, 48 h runtime
+
+# Please make sure Micromamba is installed and loaded
+    # https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html
+        # Micromamba 1.4.2 was used for the creation of this pipeline
+# Make sure Conda is also installed (only needed for the installation script)
+    # GTDBtk database download did not work with micromamba
+
+# Please change: 
+    # home_dir (line 58)
+    # db_home_dir (line 59)
+    # Gtdb database download directory (line 195)
+        # Needs to be set manually, does not accept variables as path
 
 #--------------Tools:
 # FastQC (https://github.com/s-andrews/FastQC)
@@ -53,20 +53,7 @@
 # -----------------------------------------------------------------------------
 # -----------------------------------------------------------------------------
 
-# Load modules
-module load gcc12-env
-module load miniconda3/4.12.0 
-    #only for GTDBtk database download
-module load micromamba/1.4.2
-export MAMBA_ROOT_PREFIX=$HOME/.micromamba
-eval "$(micromamba shell hook --shell=bash)"
-
-#set proxy environment for HPC
-export http_proxy=http://relay:3128
-export https_proxy=http://relay:3128
-export ftp_proxy=http://relay:3128
-
-# ##-------------------------create the folder structure--------------------
+# ##-----------------------------Folder structure------------------------------
 # Home directory
 home_dir="/path/to/your/assembly_pipeline_directory"
 db_home_dir="/path/to/your/databases_directory"
