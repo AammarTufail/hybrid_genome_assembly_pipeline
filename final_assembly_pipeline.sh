@@ -1,25 +1,31 @@
 #!/bin/bash
-#SBATCH --nodes=1
-#SBATCH --cpus-per-task=32
-#SBATCH --mem=128G
-#SBATCH --time=1-23:55:00
-#SBATCH --job-name=assembly_pipeline
-#SBATCH --output=assembly_pipeline.out
-#SBATCH --error=assembly_pipeline.err
-#SBATCH --partition=base
 
 # -----------------------------------------------------------------------------
 # ------------------------------ Info -----------------------------------------
 # -----------------------------------------------------------------------------
-# Installation, database download and folder structure for the assembly pipeline
+# This pipeline creates hybrid genome assemblies from raw Illumina and ONT reads
+    # 1. Short read trimming and quality control 
+    # 2. Long read trimming and quality control 
+    # 3. Hybrid genome assembly
+    # 4. Quality assessment of the assemblies
+    # 5. Genome annotation
+    # 6. Taxonomic classification
+    # 7. Plasmid assemblies
+
+# All tools and databases need to be installed before running this pipeline (installation_pipeline.sh)
+    # Make sure Micromamba is installed and loaded
+        # https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html
+            # Micromamba 1.4.2 was used for the creation of this pipeline
+        
+# Before running the pipeline:
     # Please change: 
-        # home_dir (line 65)
+        # home_dir (line 66)
         # db_home_dir (line 67)
-        # Micromamba activation (line 58-61)
-    # Place the raw reads in the short_input_dir (lie 84) and long_input_dir (line 85), or change the path
+    # Place the raw reads in the short_input_dir (lie 85) and long_input_dir (line 86), or change the path
+    # GTDB-tk runs into pplacer problems with insufficient memory.
+        # in this case allocate more (at least 64 GB)
     
-# GTDB-tk could run into pplacer problems with insufficient memory.
-    # in this case allocate more (at least 64 GB), or run gtdb-tk multiple times with less samples each
+
 
 #--------------Tools:
 # FastQC (https://github.com/s-andrews/FastQC)
@@ -54,11 +60,6 @@
 # -----------------------------------------------------------------------------
 # -----------------------------------------------------------------------------
 # -----------------------------------------------------------------------------
-
-# Load modules
-module load micromamba/1.4.2
-export MAMBA_ROOT_PREFIX=$HOME/.micromamba
-eval "$(micromamba shell hook --shell=bash)"
 
 # ##-------------------------create the folder structure--------------------
 # Home directory
