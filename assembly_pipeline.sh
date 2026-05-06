@@ -19,9 +19,9 @@
         
 # Before running the pipeline:
     # Please change: 
-        # home_dir (line 66)
-        # db_home_dir (line 67)
-    # Place the raw reads in the short_input_dir (lie 85) and long_input_dir (line 86), or change the path
+        # home_dir (line 74)
+        # db_home_dir (line 76)
+    # Place the raw reads in the short_input_dir (lie 93) and long_input_dir (line 94), or change the path
     # GTDB-tk runs into pplacer problems with insufficient memory.
         # allocate at least 64 GB
     
