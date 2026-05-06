@@ -15,10 +15,11 @@
     # GTDBtk database download did not work with micromamba
 
 # Please change: 
-    # home_dir (line 58)
-    # db_home_dir (line 59)
-    # Gtdb database download directory (line 195)
+    # home_dir (line 62)
+    # db_home_dir (line 63)
+    # Gtdb database download directory (line 200)
         # Needs to be set manually, does not accept variables as path
+    # Quast: Download of the database is not working, since busco removed the old databases and quast was not yet updated to work on the new (06.05.2026)
 
 #--------------Tools:
 # FastQC (https://github.com/s-andrews/FastQC)
@@ -176,13 +177,13 @@ micromamba activate 04_checkm2
 checkm2 database --download --path $checkm2_db_dir 
 micromamba deactivate
 
-# # #Quast
-# # micromamba activate 04_quast
-# # #Download of the database is not working, since busco removed the old databases and quast was not updated to work on the new db yet (04.02.2024)
-# # cd $HOME/.micromamba/envs/04_quast/lib/python3.9/site-packages/quast_libs/augustus3.2.3
-# # wget http://bioinf.uni-greifswald.de/augustus/binaries/old/augustus-3.2.3.tar.gz
-# # tar xvzf augustus-3.2.3.tar.gz
-# # micromamba deactivate
+# #Quast
+# micromamba activate 04_quast
+# #Download of the database is not working, since busco removed the old databases and quast was not updated to work on the new db yet (04.02.2024)
+# cd $HOME/.micromamba/envs/04_quast/lib/python3.9/site-packages/quast_libs/augustus3.2.3
+# wget http://bioinf.uni-greifswald.de/augustus/binaries/old/augustus-3.2.3.tar.gz
+# tar xvzf augustus-3.2.3.tar.gz
+# micromamba deactivate
 
 #Bakta
 micromamba activate 05_bakta
