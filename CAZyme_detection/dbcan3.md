@@ -1,6 +1,6 @@
 <!-- Created by Hendrik Bethge, 06.05.2026 -->
 
-# # CAZyme, CGC and PUL-based Substrate Prediction using dbCAN3
+# CAZyme, CGC and PUL-based Substrate Prediction using dbCAN3
 
 ## Table of Contents
 
